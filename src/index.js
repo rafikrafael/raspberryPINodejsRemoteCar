@@ -10,6 +10,7 @@ const ControllerMotores = require('./controllers/controllerMotores');
 const ControllerHCRS04 = require('./controllers/controllerHCSR04');
 const ControllerAcelerometer = require('./controllers/controllerAcelerometro');
 const ControllerGamePad = require('./controllers/controllerGamePad');
+const constants = require('./resources/constants');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -65,6 +66,8 @@ io.on('connection', (socket) => {
 
   console.log('Cliente Conectado ao Servidor socket io');
   socket.emit('robot status', {data: 'server connected' });  
+
+  socket.emit('timersCarrinho', constants.timersCarrinho);
 
   socket.on('recebeEventosTeclado', (evento) => {
     if (evento.type == 'keyup') {

@@ -4,10 +4,10 @@ const EventEmitter = require('events').EventEmitter;
 const constants = require('../resources/constants');
 
 const TECLAS = {
-  PARACIMA: 4,
-  DIREITA: 5,
-  PARABAIXO: 6,
-  ESQUERDA: 7
+  PARACIMA: 13, //4, //no mac
+  DIREITA: 16, //5, // no mac
+  PARABAIXO: 14, //6, no mac
+  ESQUERDA: 15 //7, no mac
 }
 
 function addDevices(controllerGamePad) {
