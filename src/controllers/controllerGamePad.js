@@ -59,11 +59,11 @@ function delegateDownEvents(controllerGamePad) {
     if (controllerGamePad.lastKeys.includes(TECLAS.PARACIMA)) {
       sendComandoParaCarrinho(controllerGamePad, 'frenteReto');      
     } else if (controllerGamePad.lastKeys.includes(TECLAS.DIREITA)) {
-      sendComandoParaCarrinho(controllerGamePad, 'direita');      
+      sendComandoParaCarrinho(controllerGamePad, 'estercerDireita');      
     } else if (controllerGamePad.lastKeys.includes(TECLAS.PARABAIXO)) {
       sendComandoParaCarrinho(controllerGamePad, 'reversoReto');      
     } else if (controllerGamePad.lastKeys.includes(TECLAS.ESQUERDA)) {
-      sendComandoParaCarrinho(controllerGamePad, 'esquerda');            
+      sendComandoParaCarrinho(controllerGamePad, 'estercerEsquerda');            
     }  
   }
 }

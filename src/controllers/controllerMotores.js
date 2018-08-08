@@ -86,7 +86,6 @@ class ControllerMotores {
   }
 
   parado() {
-    this.motors[0].stop();
     this.motors[1].stop();
   }
 
