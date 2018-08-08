@@ -2,23 +2,14 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-
 const bodyParser = require('body-parser');
+const join = require('path').join;
 
-const five = require('johnny-five');
-
-const teste = require('./teste');
-
-const pinosTrazeira = { pins: { pwm: 2, dir: 22, cdir: 23 } };
-const pinosFrente = { pins: { pwm: 3, dir: 24, cdir: 25 } }
-
-
-const cc = new teste(pinosFrente, pinosTrazeira)
-
-const ControllerMotores = require('./ControllerMotores');
-const ControllerBoard = require('./controllerBoard');
-const ControllerHCRS04 = require('./controllerHCSR04');
-const ControllerAcelerometer = require('./controllerAcelerometro')
+const ControllerBoard = require('./controllers/controllerBoard');
+const ControllerMotores = require('./controllers/controllerMotores');
+const ControllerHCRS04 = require('./controllers/controllerHCSR04');
+const ControllerAcelerometer = require('./controllers/controllerAcelerometro');
+const ControllerGamePad = require('./controllers/controllerGamePad');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -26,23 +17,25 @@ app.use(bodyParser.urlencoded());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+  res.sendfile(join(__dirname, 'public', 'views', 'index.html'));
 });
 
-// const cc = new ControllerMotores(pinosFrente, pinosTrazeira);
-// cc.teste();
+const pinosTrazeira = { pins: { pwm: 2, dir: 22, cdir: 23 } };
+const pinosFrente = { pins: { pwm: 3, dir: 24, cdir: 25 } }
 
-const hcsr04frente_01 = new ControllerHCRS04(30);
-const hcsr04frente_02 = new ControllerHCRS04(28);
-const hcsr04frente_03 = new ControllerHCRS04(26);
-const hcsr04trazeira_01 = new ControllerHCRS04(31);
-const hcsr04trazeira_02 = new ControllerHCRS04(29);
-const hcsr04trazeira_03 = new ControllerHCRS04(27);
-const controllerAcelerometro = new ControllerAcelerometer()
+const cc = new ControllerMotores(pinosFrente, pinosTrazeira);
+
+// const hcsr04frente_01 = new ControllerHCRS04(30);
+// const hcsr04frente_02 = new ControllerHCRS04(28);
+// const hcsr04frente_03 = new ControllerHCRS04(26);
+// const hcsr04trazeira_01 = new ControllerHCRS04(31);
+// const hcsr04trazeira_02 = new ControllerHCRS04(29);
+// const hcsr04trazeira_03 = new ControllerHCRS04(27);
+// const controllerAcelerometro = new ControllerAcelerometer()
 
 const modulesActivate = [
   cc,
-  controllerAcelerometro,
+  // controllerAcelerometro,
   // hcsr04frente_01,
   // hcsr04frente_02,
   // hcsr04frente_03,
@@ -53,6 +46,12 @@ const modulesActivate = [
 
 const cb = new ControllerBoard(modulesActivate)
 cb.ativar();
+
+const controllerGamePad = ControllerGamePad(cc);
+controllerGamePad.ativar();
+controllerGamePad.on('devicesChanged', (devices) => {
+  console.log(devices);
+})
 
 io.on('connection', (socket) => {
 

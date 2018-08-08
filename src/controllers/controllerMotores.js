@@ -1,6 +1,7 @@
 const five = require('johnny-five');
+const constants = require('../resources/constants');
 
-class ControllerTeste {
+class ControllerMotores {
   
   constructor(pinosFrente, pinosTrazeira) {
     this.pins = [pinosFrente, pinosTrazeira];
@@ -27,7 +28,7 @@ class ControllerTeste {
   tempoParar() {
     this.intervaloParar = setTimeout(() => {
       this.paradoTotal()
-    }, 1000);
+    }, constants.timersCarrinho.timeRotacaoMotor);
   }
 
   trataLado(lado) {
@@ -134,7 +135,7 @@ class ControllerTeste {
     this.reverso()
     this.tempoParar()
   }
-
+  
 }
 
-module.exports = ControllerTeste;
+module.exports = ControllerMotores;
