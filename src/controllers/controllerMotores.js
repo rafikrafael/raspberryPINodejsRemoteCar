@@ -94,10 +94,22 @@ class ControllerMotores {
     this.motors[1].stop();
   }
 
+  estercerEsquerda() {
+    this.limparTimer();
+    this.esquerda();
+    this.tempoParar()    
+  }
+
+  estercerDireita() {
+    this.limparTimer();
+    this.direita();
+    this.tempoParar()    
+  }
+
   frenteEsquerda() {
     this.limparTimer();
     this.esquerda();
-    this.frente()
+    this.frente();
     this.tempoParar()
   }
 

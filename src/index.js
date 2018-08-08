@@ -101,11 +101,11 @@ io.on('connection', (socket) => {
   })
 
   socket.on('esquerda', () => {
-    cc.esquerda();
+    cc.estercerEsquerda();
   })
 
   socket.on('direita', () => {
-    cc.direita();
+    cc.estercerDireita();
   })
 
   socket.on('frente', () => {
