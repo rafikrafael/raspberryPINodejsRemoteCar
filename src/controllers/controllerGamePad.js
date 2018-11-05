@@ -144,9 +144,9 @@ class ControllerGamePad extends EventEmitter {
 
 let instance = null;
 
-module.exports = function getInstance(controllerMotores) {
+module.exports = function getInstance(controllerMotores, turnOffCar) {
   if (!instance && controllerMotores) {
-    instance = new ControllerGamePad(controllerMotores);
+    instance = new ControllerGamePad(controllerMotores, turnOffCar);
     // se eu uso ele para travar as instancias do singleton realmente,
     // ocorre um erro nos eventos, dessa forma retirei ele tratando direto na instacia local
     // outra forma de tratar é joga uma valor do instance no global e retornar sempre

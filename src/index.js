@@ -56,10 +56,10 @@ function shutdown(callback){
   });
 }
 
-const cb = new ControllerBoard(modulesActivate, shutdown)
+const cb = new ControllerBoard(modulesActivate)
 cb.ativar();
 
-const controllerGamePad = ControllerGamePad(cc);
+const controllerGamePad = ControllerGamePad(cc, shutdown);
 controllerGamePad.ativar();
 controllerGamePad.on('devicesChanged', (devices) => {
   console.log(devices);
