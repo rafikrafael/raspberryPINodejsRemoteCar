@@ -57,8 +57,8 @@ function delegateDownEvents(controllerGamePad) {
       controllerGamePad.lastKeys.includes(TECLAS.ESQUERDA)) {
       sendComandoParaCarrinho(controllerGamePad, 'reversoEsquerda');            
     } else if (controllerGamePad.lastKeys.includes(TECLAS.QUADRADO) &&
-      controllerGamePad.lastKeys.includes(TECLAS.X) && turnOffCar) {
-      turnOffCar();
+      controllerGamePad.lastKeys.includes(TECLAS.X) && controllerGamePad.turnOffCar) {
+      controllerGamePad.turnOffCar();
   }
   } else {
     if (controllerGamePad.lastKeys.includes(TECLAS.PARACIMA)) {
