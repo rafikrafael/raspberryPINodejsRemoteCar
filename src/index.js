@@ -47,7 +47,13 @@ const modulesActivate = [
 
 // Create shutdown function
 function shutdown(callback){
-  exec('shutdown now', function(error, stdout, stderr){ callback(stdout); });
+  exec('halt', function(error, stdout, stderr){ 
+    if (error) console.log('error on shutdown', error);
+    if (stdout) console.log('stdout', stdout);
+    if (stderr) console.log('stderr', stderr);
+
+    callback(stdout); 
+  });
 }
 
 const cb = new ControllerBoard(modulesActivate, shutdown)
