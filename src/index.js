@@ -21,8 +21,8 @@ app.get('/', function (req, res) {
   res.sendfile(join(__dirname, 'public', 'views', 'index.html'));
 });
 
-const pinosTrazeira = { pins: { pwm: 2, dir: 22, cdir: 23 } };
-const pinosFrente = { pins: { pwm: 3, dir: 24, cdir: 25 } }
+const pinosTrazeira = { pins: { pwm: 9, dir: 6, cdir: 7 } };
+const pinosFrente = { pins: { pwm: 3, dir: 4, cdir: 5 } }
 
 const cc = new ControllerMotores(pinosFrente, pinosTrazeira);
 
@@ -45,7 +45,12 @@ const modulesActivate = [
   // hcsr04trazeira_03
 ]
 
-const cb = new ControllerBoard(modulesActivate)
+// Create shutdown function
+function shutdown(callback){
+  exec('shutdown now', function(error, stdout, stderr){ callback(stdout); });
+}
+
+const cb = new ControllerBoard(modulesActivate, shutdown)
 cb.ativar();
 
 const controllerGamePad = ControllerGamePad(cc);

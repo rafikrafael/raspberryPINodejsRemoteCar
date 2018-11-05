@@ -7,7 +7,9 @@ const TECLAS = {
   PARACIMA: 13, //4, //no mac
   DIREITA: 16, //5, // no mac
   PARABAIXO: 14, //6, no mac
-  ESQUERDA: 15 //7, no mac
+  ESQUERDA: 15, //7, no mac
+  QUADRADO: 3,
+  X: 0,
 }
 
 function addDevices(controllerGamePad) {
@@ -54,7 +56,10 @@ function delegateDownEvents(controllerGamePad) {
     } else if (controllerGamePad.lastKeys.includes(TECLAS.PARABAIXO) &&
       controllerGamePad.lastKeys.includes(TECLAS.ESQUERDA)) {
       sendComandoParaCarrinho(controllerGamePad, 'reversoEsquerda');            
-    }   
+    } else if (controllerGamePad.lastKeys.includes(TECLAS.QUADRADO) &&
+      controllerGamePad.lastKeys.includes(TECLAS.X) && turnOffCar) {
+      turnOffCar();
+  }
   } else {
     if (controllerGamePad.lastKeys.includes(TECLAS.PARACIMA)) {
       sendComandoParaCarrinho(controllerGamePad, 'frenteReto');      
@@ -70,12 +75,13 @@ function delegateDownEvents(controllerGamePad) {
 
 class ControllerGamePad extends EventEmitter {
 
-  constructor(controllerMotores) {
+  constructor(controllerMotores, turnOffCar) {
     super();
     this.controllerMotores = controllerMotores;
     this.devices = [];
     this.lastKeys = [];
     this.comandoCarrinhoInterval = null;
+    this.turnOffCar = turnOffCar;
     // EventEmitter.call(this);
   }
   
