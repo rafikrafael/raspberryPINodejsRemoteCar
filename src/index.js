@@ -4,6 +4,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
 const join = require('path').join;
+const { exec } = require('child_process');
 
 const ControllerBoard = require('./controllers/controllerBoard');
 const ControllerMotores = require('./controllers/controllerMotores');
